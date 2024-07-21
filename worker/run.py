@@ -2,21 +2,27 @@ import importlib
 import os
 import sys
 
+
 def get_curr_working_dir():
     curr_working_dir = os.getcwd()
     return curr_working_dir
 
+
 def run():
     current_working_directory = get_curr_working_dir()
-    sys.path.append(current_working_directory)
-    sys.path.append(f"{current_working_directory}/challenge_data/challenge_1")
+    sys.path.append("{}".format(current_working_directory))
+    sys.path.append("{}/challenge_data/challenge_1".format(current_working_directory))
 
     challenge_id = 1
-    challenge_phase = "single_phase"  # Update with your actual phase codename
-    annotation_file_path = f"{current_working_directory}/annotations/ground_truth.csv"  # Path to your ground truth labels
-    user_submission_file_path = f"{current_working_directory}/submission.csv"  # Path to the sample submission file
+    challenge_phase = "single_phase"  # Add the challenge phase codename to be tested
+    annotation_file_path = "{}/annotations/ground_truth.csv".format(
+        current_working_directory
+    )  # Add the test annotation file path
+    user_submission_file_path = "{}/submission.csv".format(
+        current_working_directory
+    )  # Add the sample submission file path
 
-    CHALLENGE_IMPORT_STRING = "challenge_data.challenge_1.main"
+    CHALLENGE_IMPORT_STRING = "challenge_data.challenge_1"
     challenge_module = importlib.import_module(CHALLENGE_IMPORT_STRING)
 
     EVALUATION_SCRIPTS = {}
@@ -31,25 +37,25 @@ def run():
         "publication_url": u"ABC",
         "challenge_phase": 1,
         "created_by": u"ABC",
-        "stdout_file": "https://abc.xyz/path/to/stdout/file.json",
+        "stdout_file": "https://abc.xyz/path/to/stdout/file.csv",
         "method_name": u"Test",
-        "stderr_file": "https://abc.xyz/path/to/stderr/file.json",
+        "stderr_file": "https://abc.xyz/path/to/stderr/file.csv",
         "participant_team_name": u"Test Team",
         "project_url": u"http://foo.bar",
         "method_description": u"ABC",
         "is_public": False,
-        "submission_result_file": "https://abc.xyz/path/result/file.json",
+        "submission_result_file": "https://abc.xyz/path/result/file.csv",
         "id": 123,
         "submitted_at": u"2017-03-20T19:22:03.880652Z",
     }
-    result = EVALUATION_SCRIPTS[challenge_id].evaluate(
+    EVALUATION_SCRIPTS[challenge_id].evaluate(
         annotation_file_path,
         user_submission_file_path,
         challenge_phase,
         submission_metadata=submission_metadata,
     )
     print("Evaluated Successfully!")
-    print(result)
+
 
 if __name__ == "__main__":
     run()
