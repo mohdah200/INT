@@ -1,30 +1,58 @@
-import pandas as pd
-from sklearn.metrics import roc_auc_score
+import importlib
+import os
+import sys
 
-def evaluate(test_annotation_file, user_submission_file, phase_codename, **kwargs):
-    print("Starting Evaluation.....")
-    
-    # Load ground truth and submission files
-    ground_truth = pd.read_csv(test_annotation_file)
-    submission = pd.read_csv(user_submission_file)
-    
-    # Ensure that the labels are correctly named in both files
-    y_true = ground_truth['class3']
-    y_pred = submission['class3']
-    
-    # Calculate AUC-ROC
-    auc_roc = roc_auc_score(y_true, y_pred)
-    
-    # Return results in the required format
-    output = {
-        'result': [
-            {
-                'single_phase_split': {  # Match this to your dataset split name
-                    'AUC-ROC': auc_roc
-                }
-            }
-        ]
+def get_curr_working_dir():
+    curr_working_dir = os.getcwd()
+    return curr_working_dir
+
+def run():
+    current_working_directory = get_curr_working_dir()
+    sys.path.append("{}".format(current_working_directory))
+    sys.path.append("{}/challenge_data/challenge_1".format(current_working_directory))
+
+    challenge_id = 1
+    challenge_phase = "single_phase"  # Add the challenge phase codename to be tested
+    annotation_file_path = "{}/annotations/ground_truth.csv".format(
+        current_working_directory
+    )  # Add the test annotation file path
+    user_submission_file_path = "{}/submission.csv".format(
+        current_working_directory
+    )  # Add the sample submission file path
+
+    CHALLENGE_IMPORT_STRING = "challenge_data.challenge_1"
+    challenge_module = importlib.import_module(CHALLENGE_IMPORT_STRING)
+
+    EVALUATION_SCRIPTS = {}
+    EVALUATION_SCRIPTS[challenge_id] = challenge_module
+    print("Trying to evaluate")
+    submission_metadata = {
+        "status": u"running",
+        "when_made_public": None,
+        "participant_team": 5,
+        "input_file": "https://abc.xyz/path/to/submission/file.csv",
+        "execution_time": u"123",
+        "publication_url": u"ABC",
+        "challenge_phase": 1,
+        "created_by": u"ABC",
+        "stdout_file": "https://abc.xyz/path/to/stdout/file.csv",
+        "method_name": u"Test",
+        "stderr_file": "https://abc.xyz/path/to/stderr/file.csv",
+        "participant_team_name": u"Test Team",
+        "project_url": u"http://foo.bar",
+        "method_description": u"ABC",
+        "is_public": False,
+        "submission_result_file": "https://abc.xyz/path/result/file.csv",
+        "id": 123,
+        "submitted_at": u"2017-03-20T19:22:03.880652Z",
     }
-    
-    print("Evaluation Completed Successfully!")
-    return output
+    EVALUATION_SCRIPTS[challenge_id].evaluate(
+        annotation_file_path,
+        user_submission_file_path,
+        challenge_phase,
+        submission_metadata=submission_metadata,
+    )
+    print("Evaluated Successfully!")
+
+if __name__ == "__main__":
+    run()
