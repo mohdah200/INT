@@ -2,11 +2,9 @@ import importlib
 import os
 import sys
 
-
 def get_curr_working_dir():
     curr_working_dir = os.getcwd()
     return curr_working_dir
-
 
 def run():
     current_working_directory = get_curr_working_dir()
@@ -14,13 +12,9 @@ def run():
     sys.path.append("{}/challenge_data/challenge_1".format(current_working_directory))
 
     challenge_id = 1
-    challenge_phase = "single_phase"  # Add the challenge phase codename to be tested
-    annotation_file_path = "{}/annotations/ground_truth.csv".format(
-        current_working_directory
-    )  # Add the test annotation file path
-    user_submission_file_path = "{}/submission.csv".format(
-        current_working_directory
-    )  # Add the sample submission file path
+    challenge_phase = "single_phase"  # Use the phase codename
+    annotation_file_path = "{}/annotations/ground_truth.csv".format(current_working_directory)
+    user_submission_file_path = "{}/submission.csv".format(current_working_directory)
 
     CHALLENGE_IMPORT_STRING = "challenge_data.challenge_1"
     challenge_module = importlib.import_module(CHALLENGE_IMPORT_STRING)
@@ -55,7 +49,6 @@ def run():
         submission_metadata=submission_metadata,
     )
     print("Evaluated Successfully!")
-
 
 if __name__ == "__main__":
     run()
