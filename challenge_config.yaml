@@ -1,11 +1,11 @@
 title: CSV Classification Challenge
-short_description: CSV classification challenge with accuracy, precision, recall, and F1 score metrics.
+short_description: CSV classification challenge with accuracy metrics.
 description: templates/description.html
 evaluation_details: templates/evaluation_details.html
 terms_and_conditions: templates/terms_and_conditions.html
 image: logo.jpg
 submission_guidelines: templates/submission_guidelines.html
-leaderboard_description: This leaderboard ranks submissions based on their accuracy, precision, recall, and F1 score.
+leaderboard_description: This leaderboard ranks submissions based on their accuracy.
 evaluation_script: evaluation_script.zip
 remote_evaluation: False
 is_docker_based: False
@@ -17,24 +17,12 @@ leaderboard:
   - id: 1
     schema:
       {
-        "labels": ["Accuracy", "Precision", "Recall", "F1 Score"],
-        "default_order_by": "F1 Score",
+        "labels": ["Accuracy"],
+        "default_order_by": "Accuracy",
         "metadata": {
           "Accuracy": {
             "sort_ascending": False,
             "description": "Accuracy of the model."
-          },
-          "Precision": {
-            "sort_ascending": False,
-            "description": "Precision of the model."
-          },
-          "Recall": {
-            "sort_ascending": False,
-            "description": "Recall of the model."
-          },
-          "F1 Score": {
-            "sort_ascending": False,
-            "description": "F1 Score of the model."
           }
         }
       }
@@ -85,13 +73,13 @@ challenge_phases:
 
 dataset_splits:
   - id: 1
-    name: Train Split
-    codename: train_split
+    name: Test Split
+    codename: test_split
 
 challenge_phase_splits:
   - challenge_phase_id: 1
     leaderboard_id: 1
     dataset_split_id: 1
-    visibility: 1
+    visibility: 3
     leaderboard_decimal_precision: 2
     is_leaderboard_order_descending: True
