@@ -1,46 +1,44 @@
-title: CSV Classification Challenge
-short_description: CSV classification challenge with accuracy metrics.
-description: templates/description.html
-evaluation_details: templates/evaluation_details.html
-terms_and_conditions: templates/terms_and_conditions.html
-image: logo.jpg
-submission_guidelines: templates/submission_guidelines.html
-leaderboard_description: This leaderboard ranks submissions based on their accuracy.
-evaluation_script: evaluation_script.zip
+title: "My Challenge Title"
+short_description: "Short description of the challenge"
+description: "templates/description.html"
+evaluation_details: "templates/evaluation_details.html"
+terms_and_conditions: "templates/terms_and_conditions.html"
+image: "logo.jpg"
+submission_guidelines: "templates/submission_guidelines.html"
+evaluation_script: "evaluation_script.zip"
 remote_evaluation: False
 is_docker_based: False
-start_date: 2024-07-20 00:00:00
-end_date: 2025-01-20 23:59:59
+is_static_dataset_code_upload: False
+start_date: "2024-07-20 08:00:00"
+end_date: "2025-01-21 07:59:59"
 published: True
-
+allowed_email_domains: []
+blocked_emails_domains: []
 leaderboard:
   - id: 1
     schema:
-      {
-        "labels": ["Accuracy"],
-        "default_order_by": "Accuracy",
-        "metadata": {
-          "Accuracy": {
-            "sort_ascending": False,
-            "description": "Accuracy of the model."
-          }
+      labels: ["Accuracy"]
+      default_order_by: "Accuracy"
+      metadata:
+        "Accuracy": {
+          "sort_ascending": False,
+          "description": "Classification Accuracy"
         }
-      }
 
 challenge_phases:
   - id: 1
-    name: Single Phase
-    description: templates/challenge_phase_description.html
+    name: "Single Phase"
+    description: "templates/challenge_phase_description.html"
     leaderboard_public: True
     is_public: True
-    is_submission_public: True
-    start_date: 2024-07-20 00:00:00
-    end_date: 2025-01-20 23:59:59
-    test_annotation_file: annotations/ground_truth.csv  # Path to your ground truth labels
-    codename: single_phase
-    max_submissions_per_day: 5
-    max_submissions_per_month: 50
-    max_submissions: 50
+    is_submission_public: False
+    start_date: "2024-07-20 08:00:00"
+    end_date: "2025-01-21 07:59:59"
+    test_annotation_file: "annotations/ground_truth.csv"
+    codename: "single_phase"
+    max_submissions_per_day: 100
+    max_submissions_per_month: 1000
+    max_submissions: 10000
     default_submission_meta_attributes:
       - name: method_name
         is_visible: True
@@ -50,31 +48,11 @@ challenge_phases:
         is_visible: True
       - name: publication_url
         is_visible: True
-    submission_meta_attributes:
-      - name: TextAttribute
-        description: Sample
-        type: text
-        required: False
-      - name: SingleOptionAttribute
-        description: Sample
-        type: radio
-        options: ["A", "B", "C"]
-      - name: MultipleChoiceAttribute
-        description: Sample
-        type: checkbox
-        options: ["alpha", "beta", "gamma"]
-      - name: TrueFalseField
-        description: Sample
-        type: boolean
-        required: True
-    is_restricted_to_select_one_submission: False
-    is_partial_submission_evaluation_enabled: False
-    allowed_submission_file_types: ".csv"
 
 dataset_splits:
   - id: 1
-    name: Test Split
-    codename: test_split
+    name: "test_split"
+    codename: "test_split"
 
 challenge_phase_splits:
   - challenge_phase_id: 1
