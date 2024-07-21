@@ -1,11 +1,11 @@
 title: CSV Classification Challenge
-short_description: CSV classification challenge with Accuracy metric.
+short_description: CSV classification challenge with accuracy metric.
 description: templates/description.html
 evaluation_details: templates/evaluation_details.html
 terms_and_conditions: templates/terms_and_conditions.html
 image: logo.jpg
 submission_guidelines: templates/submission_guidelines.html
-leaderboard_description: This leaderboard ranks submissions based on their Accuracy score.
+leaderboard_description: This leaderboard ranks submissions based on their accuracy.
 evaluation_script: evaluation_script.zip
 remote_evaluation: False
 is_docker_based: False
@@ -36,7 +36,7 @@ challenge_phases:
     is_submission_public: True
     start_date: 2024-07-20 00:00:00
     end_date: 2025-01-20 23:59:59
-    test_annotation_file: annotations/ground_truth.csv  # Path to your ground truth labels
+    test_annotation_file: data/ground_truth.csv  # Path to your ground truth labels
     codename: single_phase
     max_submissions_per_day: 5
     max_submissions_per_month: 50
@@ -69,17 +69,51 @@ challenge_phases:
         required: True
     is_restricted_to_select_one_submission: False
     is_partial_submission_evaluation_enabled: False
-    allowed_submission_file_types: ".csv"
+    allowed_submission_file_types: ".json, .zip, .txt, .tsv, .gz, .csv, .h5, .npy, .npz"
+  - id: 2  # Placeholder for challenge phase 2
+    name: Placeholder Phase
+    description: templates/challenge_phase_2_description.html
+    leaderboard_public: False
+    is_public: False
+    is_submission_public: False
+    start_date: 2024-07-20 00:00:00
+    end_date: 2025-01-20 23:59:59
+    test_annotation_file: data/placeholder.csv  # Placeholder path
+    codename: placeholder_phase
+    max_submissions_per_day: 0
+    max_submissions_per_month: 0
+    max_submissions: 0
 
 dataset_splits:
   - id: 1
-    name: Single Phase Split
-    codename: single_phase_split
+    name: Train Split
+    codename: train_split
+  - id: 2  # Placeholder for dataset split 2
+    name: Placeholder Split
+    codename: placeholder_split
 
 challenge_phase_splits:
   - challenge_phase_id: 1
     leaderboard_id: 1
     dataset_split_id: 1
+    visibility: 1
+    leaderboard_decimal_precision: 2
+    is_leaderboard_order_descending: True
+  - challenge_phase_id: 1
+    leaderboard_id: 1
+    dataset_split_id: 2  # Placeholder reference
     visibility: 3
     leaderboard_decimal_precision: 2
-    is_leaderboard_order_descending: False
+    is_leaderboard_order_descending: True
+  - challenge_phase_id: 2  # Placeholder reference
+    leaderboard_id: 1
+    dataset_split_id: 1
+    visibility: 1
+    leaderboard_decimal_precision: 2
+    is_leaderboard_order_descending: True
+  - challenge_phase_id: 2  # Placeholder reference
+    leaderboard_id: 1
+    dataset_split_id: 2
+    visibility: 1
+    leaderboard_decimal_precision: 2
+    is_leaderboard_order_descending: True
