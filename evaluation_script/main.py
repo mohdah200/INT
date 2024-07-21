@@ -2,42 +2,25 @@ import pandas as pd
 
 def evaluate(test_annotation_file, user_submission_file, phase_codename, **kwargs):
     print("Starting Evaluation.....")
-    """
-    Evaluates the submission for a particular challenge phase and returns score
-    Arguments:
-        `test_annotations_file`: Path to test_annotation_file on the server
-        `user_submission_file`: Path to file submitted by the user
-        `phase_codename`: Phase to which submission is made
-        `**kwargs`: keyword arguments that contains additional submission
-        metadata that challenge hosts can use to send slack notification.
-        You can access the submission metadata
-        with kwargs['submission_metadata']
-    """
-    # Load the ground truth and submission
-    ground_truth = pd.read_csv(test_annotation_file)
-    submission = pd.read_csv(user_submission_file)
 
-    # Ensure the correct columns are present
-    assert 'class3' in ground_truth.columns
-    assert 'class3' in submission.columns
+    # Load the ground truth and user submission files
+    ground_truth = pd.read_csv(test_annotation_file)
+    user_submission = pd.read_csv(user_submission_file)
 
     # Calculate accuracy
-    correct = (ground_truth['class3'] == submission['class3']).sum()
-    total = ground_truth.shape[0]
-    accuracy = correct / total
+    accuracy = (ground_truth['class3'] == user_submission['class3']).mean()
 
-    output = {
-        'result': [
+    output = {}
+    if phase_codename == "single_phase":
+        print("Evaluating for Single Phase")
+        output["result"] = [
             {
-                'test_split': {
-                    'Accuracy': accuracy
+                "test_split": {
+                    "Accuracy": accuracy,
                 }
             }
-        ],
-        'submission_result': {
-            'Accuracy': accuracy
-        }
-    }
+        ]
+        output["submission_result"] = output["result"][0]["test_split"]
+        print("Completed evaluation for Single Phase")
 
-    print("Completed evaluation for Test Phase")
     return output
