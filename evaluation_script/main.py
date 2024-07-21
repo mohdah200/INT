@@ -1,37 +1,43 @@
+import pandas as pd
+
 def evaluate(test_annotation_file, user_submission_file, phase_codename, **kwargs):
     print("Starting Evaluation.....")
+    """
+    Evaluates the submission for a particular challenge phase and returns score
+    Arguments:
+        `test_annotations_file`: Path to test_annotation_file on the server
+        `user_submission_file`: Path to file submitted by the user
+        `phase_codename`: Phase to which submission is made
+        `**kwargs`: keyword arguments that contains additional submission
+        metadata that challenge hosts can use to send slack notification.
+        You can access the submission metadata
+        with kwargs['submission_metadata']
+    """
+    # Load the ground truth and submission
+    ground_truth = pd.read_csv(test_annotation_file)
+    submission = pd.read_csv(user_submission_file)
 
-    # Load ground truth and user submission CSV files
-    ground_truth = []
-    user_submission = []
-
-    with open(test_annotation_file, 'r') as f:
-        for line in f:
-            ground_truth.append(line.strip())
-
-    with open(user_submission_file, 'r') as f:
-        for line in f:
-            user_submission.append(line.strip())
-
-    # Extract labels
-    y_true = ground_truth
-    y_pred = user_submission
+    # Ensure the correct columns are present
+    assert 'class3' in ground_truth.columns
+    assert 'class3' in submission.columns
 
     # Calculate accuracy
-    correct = sum(1 for true, pred in zip(y_true, y_pred) if true == pred)
-    total = len(y_true)
+    correct = (ground_truth['class3'] == submission['class3']).sum()
+    total = ground_truth.shape[0]
     accuracy = correct / total
 
-    # Prepare the output dictionary
-    output = {}
-    output["result"] = [
-        {
-            "test_split": {
-                "Accuracy": accuracy
+    output = {
+        'result': [
+            {
+                'test_split': {
+                    'Accuracy': accuracy
+                }
             }
+        ],
+        'submission_result': {
+            'Accuracy': accuracy
         }
-    ]
-    output["submission_result"] = output["result"][0]["test_split"]
+    }
 
-    print("Completed evaluation.")
+    print("Completed evaluation for Test Phase")
     return output
