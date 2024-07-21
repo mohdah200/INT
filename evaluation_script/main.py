@@ -1,26 +1,27 @@
 import pandas as pd
-from sklearn.metrics import roc_auc_score
 
 def evaluate(test_annotation_file, user_submission_file, phase_codename, **kwargs):
     print("Starting Evaluation.....")
     
     # Load ground truth and submission files
-    ground_truth = pd.read_csv(test_annotation_file)
-    submission = pd.read_csv(user_submission_file)
+    ground_truth = pd.read_csv(test_annotation_file, header=None)
+    submission = pd.read_csv(user_submission_file, header=None)
     
-    # Ensure that the labels are correctly named in both files
-    y_true = ground_truth['class3']
-    y_pred = submission['class3']
+    # Extract labels (assuming they are in the first column)
+    y_true = ground_truth[0]
+    y_pred = submission[0]
     
-    # Calculate AUC-ROC
-    auc_roc = roc_auc_score(y_true, y_pred)
+    # Calculate accuracy
+    correct_predictions = sum(y_true == y_pred)
+    total_predictions = len(y_true)
+    accuracy = correct_predictions / total_predictions
     
     # Return results in the required format
     output = {
         'result': [
             {
                 'single_phase_split': {  # Match this to your dataset split name
-                    'AUC-ROC': auc_roc
+                    'Accuracy': accuracy
                 }
             }
         ]
