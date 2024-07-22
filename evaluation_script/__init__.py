@@ -4,17 +4,13 @@
 # A. Uncomment the below code to install the custom python packages.
 
 import os
-import subprocess
-import sys
+
+
 from pathlib import Path
+from challenge_1.main import evaluate_accuracy
+from challenge_2.main import evaluate_bleu_cider
 
-def install(package):
-    # Install a pip python package
 
-    # Args:
-    #     package ([str]): Package name with version
-    
-    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 
 
 def install_local_package(folder_name):
@@ -39,5 +35,20 @@ install("requests==2.25.1")
 install_local_package("package_folder_name")
 
 """
+import os
+import subprocess
+import sys
+from pathlib import Path
+def install(package):
+    # Install a pip python package
 
+    # Args:
+    #     package ([str]): Package name with version
+    
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+install ("pandas")
+sys.path.append(os.path.join(os.path.dirname(__file__)))
 from .main import evaluate
+
+
