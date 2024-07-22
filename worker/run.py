@@ -12,8 +12,8 @@ def run():
     sys.path.append("{}/challenge_data/challenge_1".format(current_working_directory))
 
     challenge_id = 1
-    challenge_phase = "single_phase"  # Add the challenge phase codename to be tested
-    annotation_file_path = "{}/annotations/ground_truth.csv".format(
+    challenge_phase = "test"  # Add the challenge phase codename to be tested
+    annotation_file_path = "{}/annotations/test_annotations_testsplit.csv".format(
         current_working_directory
     )  # Add the test annotation file path
     user_submission_file_path = "{}/submission.csv".format(
