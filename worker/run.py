@@ -12,7 +12,7 @@ def run():
     sys.path.append("{}/challenge_data/challenge_1".format(current_working_directory))
 
     challenge_id = 1
-    challenge_phase = "single_phase"  # Use the phase codename
+    challenge_phase = "single_phase"  # Updated phase codename
     annotation_file_path = "{}/annotations/ground_truth.csv".format(current_working_directory)
     user_submission_file_path = "{}/submission.csv".format(current_working_directory)
 
@@ -52,4 +52,3 @@ def run():
 
 if __name__ == "__main__":
     run()
-
