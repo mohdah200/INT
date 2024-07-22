@@ -3,24 +3,26 @@ import pandas as pd
 def evaluate(test_annotation_file, user_submission_file, phase_codename, **kwargs):
     print("Starting Evaluation.....")
 
-    # Load the ground truth and user submission files
+    # Load the ground truth and submission files
     ground_truth = pd.read_csv(test_annotation_file)
-    user_submission = pd.read_csv(user_submission_file)
+    submission = pd.read_csv(user_submission_file)
 
-    # Calculate accuracy
-    accuracy = (ground_truth['class3'] == user_submission['class3']).mean()
+    # Compute accuracy
+    correct = (ground_truth['class3'] == submission['class3']).sum()
+    total = len(ground_truth)
+    accuracy = correct / total
 
-    output = {}
-    if phase_codename == "single_phase":
-        print("Evaluating for Single Phase")
-        output["result"] = [
+    # Return the accuracy
+    output = {
+        'result': [
             {
-                "test_split": {
-                    "Accuracy": accuracy,
+                'test_split': {
+                    'Accuracy': accuracy
                 }
             }
-        ]
-        output["submission_result"] = output["result"][0]["test_split"]
-        print("Completed evaluation for Single Phase")
-
+        ],
+        'submission_result': {
+            'Accuracy': accuracy
+        }
+    }
     return output
