@@ -8,7 +8,7 @@ def evaluate(test_annotation_file, user_submission_file, phase_codename, **kwarg
     user_submission = pd.read_csv(user_submission_file)
 
     # Calculate accuracy
-    correct = (ground_truth['label'] == user_submission['label']).sum()
+    correct = (ground_truth['class3'] == user_submission['class3']).sum()
     total = ground_truth.shape[0]
     accuracy = correct / total
 
