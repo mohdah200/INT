@@ -16,12 +16,16 @@ published: True
 leaderboard:
   - id: 1
     schema:
-      labels: ["Accuracy"]
-      default_order_by: "Accuracy"
-      metadata:
-        Accuracy:
-          sort_ascending: False
-          description: "Accuracy of the model"
+      {
+        "labels": ["Accuracy"],
+        "default_order_by": "Accuracy",
+        "metadata": {
+          "Accuracy": {
+            "sort_ascending": False,
+            "description": "Accuracy of the model."
+          }
+        }
+      }
 
 challenge_phases:
   - id: 1
@@ -32,7 +36,7 @@ challenge_phases:
     is_submission_public: True
     start_date: 2019-01-19 00:00:00
     end_date: 2099-04-25 23:59:59
-    test_annotation_file: annotations/test_annotations_devsplit.csv
+    test_annotation_file: annotations/dev_annotations.csv
     codename: dev
     max_submissions_per_day: 5
     max_submissions_per_month: 50
@@ -65,7 +69,7 @@ challenge_phases:
         required: True
     is_restricted_to_select_one_submission: False
     is_partial_submission_evaluation_enabled: False
-    allowed_submission_file_types: ".csv"
+    allowed_submission_file_types: ".json, .zip, .txt, .tsv, .gz, .csv, .h5, .npy, .npz"
   - id: 2
     name: Test Phase
     description: templates/challenge_phase_2_description.html
@@ -74,7 +78,7 @@ challenge_phases:
     is_submission_public: True
     start_date: 2019-01-01 00:00:00
     end_date: 2099-05-24 23:59:59
-    test_annotation_file: annotations/test_annotations_testsplit.csv
+    test_annotation_file: annotations/test_annotations.csv
     codename: test
     max_submissions_per_day: 5
     max_submissions_per_month: 50
