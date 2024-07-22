@@ -12,9 +12,13 @@ def run():
     sys.path.append("{}/challenge_data/challenge_1".format(current_working_directory))
 
     challenge_id = 1
-    challenge_phase = "single_phase"  # Updated phase codename
-    annotation_file_path = "{}/annotations/ground_truth.csv".format(current_working_directory)
-    user_submission_file_path = "{}/submission.csv".format(current_working_directory)
+    challenge_phase = "single_phase"  # Add the challenge phase codename to be tested
+    annotation_file_path = "{}/annotations/ground_truth.csv".format(
+        current_working_directory
+    )  # Add the test annotation file path
+    user_submission_file_path = "{}/submission.csv".format(
+        current_working_directory
+    )  # Add the sample submission file path
 
     CHALLENGE_IMPORT_STRING = "challenge_data.challenge_1"
     challenge_module = importlib.import_module(CHALLENGE_IMPORT_STRING)
